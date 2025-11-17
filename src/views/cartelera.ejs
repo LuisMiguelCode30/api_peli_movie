@@ -1,11 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+    <%- include('partials/head') %>
+    <style>
+      body {
+        margin: 0;
+        background: #0d0d0d;
+        color: #fff;
+        font-family: "Poppins", sans-serif;
+      }
+
+      .cartelera-container {
+        padding: 40px;
+      }
+
+      .titulo-cartelera {
+        text-align: center;
+        font-size: 42px;
+        margin-bottom: 30px;
+        color: #ffcc00;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .grid-cartelera {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 25px;
+      }
+
+      .poster-card {
+        background: #1a1a1a;
+        border-radius: 12px;
+        padding: 15px;
+        box-shadow: 0px 0px 15px rgba(255, 204, 0, 0.3);
+        transition: transform 0.2s ease;
+        border: 2px solid #333;
+      }
+
+      .poster-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 0px 20px rgba(255, 204, 0, 0.6);
+      }
+
+      .poster-title {
+        font-size: 20px;
+        margin-bottom: 8px;
+        color: #ffcc00;
+        font-weight: bold;
+      }
+
+      .poster-category {
+        font-size: 14px;
+        color: #cccccc;
+        margin-bottom: 10px;
+      }
+
+      .poster-price {
+        font-size: 22px;
+        color: #00ff88;
+        margin-bottom: 5px;
+      }
+
+      .poster-stock {
+        font-size: 14px;
+        color: #999;
+      }
+
+      .poster-date {
+        font-size: 12px;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('partials/navigation') %>
     <h1>Cartelera</h1>
-</body>
+
+    <section class="cartelera-container">
+      <h1 class="titulo-cartelera">🎬 Cartelera de Productos</h1>
+
+      <div id="cartelera" class="grid-cartelera">
+        <!-- Aquí se cargan los productos automáticamente -->
+      </div>
+    </section>
+
+    <script>
+      async function cargarCartelera() {
+        try {
+          const res = await fetch("/api/productos");
+          const data = await res.json();
+
+          const contenedor = document.getElementById("cartelera");
+          contenedor.innerHTML = "";
+
+          data.forEach((producto) => {
+            contenedor.innerHTML += `
+          <div class="poster-card">
+            <h2 class="poster-title">${
+              producto.product_name || "Sin nombre"
+            }</h2>
+            <p class="poster-category">Categoría: ${
+              producto.category || "-"
+            }</p>
+            <p class="poster-price">Precio: Bs ${producto.price}</p>
+            <p class="poster-stock">Stock disponible: ${
+              producto.stock_quantity
+            }</p>
+            <p class="poster-date">Creado: ${new Date(
+              producto.create_date
+            ).toLocaleDateString()}</p>
+          </div>
+        `;
+          });
+        } catch (error) {
+          console.error("Error al cargar la cartelera:", error);
+          document.getElementById("cartelera").innerHTML =
+            "<p>Error al cargar los datos 😢</p>";
+        }
+      }
+
+      cargarCartelera();
+    </script>
+  </body>
 </html>
