@@ -1,0 +1,79 @@
+# Node modules
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Dependency directories
+.pnp/
+.pnp.js
+
+# Optional npm cache
+.npm
+
+# dotenv environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build output
+dist/
+build/
+out/
+/.next/
+/.nuxt/
+.vercel/
+
+# Testing
+coverage/
+.nyc_output/
+jest.config.js
+jest-*.json
+
+# TypeScript
+*.tsbuildinfo
+
+# Parcel, Vite, Rollup caches
+.parcel-cache/
+.cache/
+.vite/
+
+# Misc
+*.tgz
+*.gz
+*.zip
+
+# Editor directories and files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# eslint cache
+.eslintcache
+
+# Coverage and report outputs
+coverage/
+.report
+
+# Local npm binary
+.bin/
